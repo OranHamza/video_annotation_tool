@@ -1,9 +1,9 @@
 {
     "video_file": "C:/Users/Hamza Oran/Desktop/VibroNav/video_annotation\\1.webm",
     "annotations": {
-        "start_frame": 19,
-        "end_frame": 26,
-        "start_time": 0.6,
-        "end_time": 0.8333333333333334
+        "start_frame": 37,
+        "end_frame": 46,
+        "start_time": 1.2,
+        "end_time": 1.5
     }
 }

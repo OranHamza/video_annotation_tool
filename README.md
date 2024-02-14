@@ -14,6 +14,7 @@
 ## Usage
 
 1. **Run Code**: Execute the code using the command line interface (CLI).
+- python video_annotation_tool.py "your videos folder path"
 2. **Controls**:
 - Press the **'Space'** key to toggle between pause and play.
 - Press **'s'** to mark the start of an annotation.

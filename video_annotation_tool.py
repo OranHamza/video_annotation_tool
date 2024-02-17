@@ -3,12 +3,14 @@ import argparse
 import json
 import os
 
+
 def convert_webm_to_mp4(video_path):
     # Function to convert a WebM video to MP4 format
     output_mp4 = video_path.replace(".webm", ".mp4")
     cmd = f'ffmpeg -i "{video_path}" -c:v libx264 -crf 23 -c:a aac -strict experimental "{output_mp4}"'
     os.system(cmd)
     return output_mp4
+
 
 def annotate_video(video_path):
     # Function to annotate time instants in a video
@@ -105,6 +107,7 @@ def annotate_video(video_path):
 
     return quit_app  # Return the flag value
 
+
 def process_videos_in_folder(folder_path):
     video_files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f)) and f.lower().endswith(('.mp4', '.webm'))]
 
@@ -114,9 +117,14 @@ def process_videos_in_folder(folder_path):
         if quit_app:
             break  # Exit the loop if the flag indicates to quit
 
-if __name__ == "__main__":
+
+def main():
     parser = argparse.ArgumentParser(description='Annotate time instants in videos in a folder.')
     parser.add_argument('folder_path', type=str, help='Path to the folder containing video files')
     args = parser.parse_args()
 
     process_videos_in_folder(args.folder_path)
+
+
+if __name__ == "__main__":
+    main()

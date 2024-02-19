@@ -3,16 +3,20 @@ import argparse
 import json
 import os
 
+
 def convert_webm_to_mp4(video_path):
-    # Function to convert a WebM video to MP4 format
+    if video_path.lower().endswith('.mp4'):
+        return video_path  # Do nothing if the video is already in MP4 format
+
     output_mp4 = video_path.replace(".webm", ".mp4")
     cmd = f'ffmpeg -i "{video_path}" -c:v libx264 -crf 23 -c:a aac -strict experimental "{output_mp4}"'
     os.system(cmd)
     return output_mp4
 
+
 def annotate_video(video_path):
-    # Function to annotate time instants in a video
     mp4_path = convert_webm_to_mp4(video_path)
+
     cap = cv2.VideoCapture(mp4_path)
 
     if not cap.isOpened():
@@ -36,9 +40,10 @@ def annotate_video(video_path):
             cv2.imshow('Video Annotation', frame)
             frame_buffer.append(frame)
 
+        video_name_without_extension = os.path.splitext(os.path.basename(video_path))[0]
         frame_index = int(cap.get(cv2.CAP_PROP_POS_FRAMES))
         time_in_seconds = cap.get(cv2.CAP_PROP_POS_MSEC) / 1000.0
-        title_text = f'Frame: {frame_index} | Time: {time_in_seconds:.2f}s'
+        title_text = f'{video_name_without_extension} | Frame: {frame_index} | Time: {time_in_seconds:.2f}s'
 
         if start_frame is not None:
             title_text += f' | Start Frame(Time): {start_frame}({start_time:.2f}s)'
@@ -58,11 +63,18 @@ def annotate_video(video_path):
         elif key == ord('s'):  # 's' key for marking start
             start_frame = frame_index
             start_time = time_in_seconds
+            if end_frame is not None and start_frame > end_frame:
+                end_frame = None
+                cv2.setWindowTitle('Video Annotation', f'End Frame reset | {title_text}')
         elif key == ord('e'):  # 'e' key for marking end
             if start_frame is not None:
                 end_frame = frame_index
                 end_time = time_in_seconds
-                annotations = ({"start_frame": start_frame, "end_frame": end_frame, "start_time": start_time, "end_time": end_time})
+                if end_frame is not None and end_frame < start_frame:
+                    end_frame = None
+                    cv2.setWindowTitle('Video Annotation', f'End Frame reset | {title_text}')
+                else:
+                    annotations = ({"start_frame": start_frame, "end_frame": end_frame, "start_time": start_time, "end_time": end_time})
         elif key == ord('n'):  # 'n' key to move to the next video
             break
         elif key == ord('c'):  # 'c' key to clear annotations
@@ -95,15 +107,16 @@ def annotate_video(video_path):
     if annotations:
         output_file = mp4_path.replace(".mp4", ".json")
         with open(output_file, 'w') as f:
-            json.dump({"video_file": video_path, "annotations": annotations}, f, indent=4)
+            json.dump({"video_file": video_path, "video_annotations": annotations}, f, indent=4)
             print(f"Annotations for {video_path} saved to {output_file}.")
     else:
         print(f"No annotations made for {video_path}.")
 
-    if os.path.exists(mp4_path):
+    if mp4_path != video_path:
         os.remove(mp4_path)
 
     return quit_app  # Return the flag value
+
 
 def process_videos_in_folder(folder_path):
     video_files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f)) and f.lower().endswith(('.mp4', '.webm'))]
@@ -114,9 +127,14 @@ def process_videos_in_folder(folder_path):
         if quit_app:
             break  # Exit the loop if the flag indicates to quit
 
-if __name__ == "__main__":
+
+def main():
     parser = argparse.ArgumentParser(description='Annotate time instants in videos in a folder.')
     parser.add_argument('folder_path', type=str, help='Path to the folder containing video files')
     args = parser.parse_args()
 
     process_videos_in_folder(args.folder_path)
+
+
+if __name__ == "__main__":
+    main()

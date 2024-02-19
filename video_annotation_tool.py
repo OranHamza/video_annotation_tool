@@ -6,7 +6,7 @@ import os
 
 def convert_webm_to_mp4(video_path):
     if video_path.lower().endswith('.mp4'):
-        return video_path  # Do nothing if the video is already in MP4 format
+        return video_path  #if video is already mp4 format
 
     output_mp4 = video_path.replace(".webm", ".mp4")
     cmd = f'ffmpeg -i "{video_path}" -c:v libx264 -crf 23 -c:a aac -strict experimental "{output_mp4}"'

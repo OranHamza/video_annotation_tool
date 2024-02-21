@@ -2,6 +2,12 @@
 
 ## Installation
 
+### Tool installation
+
+Execute in CLI:
+
+```python -m pip install https://github.com/OranHamza/video_annotation_tool/archive/master.zip```
+
 ### Setting up FFmpeg(For Windows)
 
 1. **Download FFmpeg**: [Download FFmpeg](https://drive.google.com/file/d/1r8pC5NDXZ5aPoLZy9EsrnZ1PvbaOSqiR/view) from the provided link.
@@ -22,17 +28,16 @@ Start by launching the Command Prompt or PowerShell and enter ffmpeg.
 If the installation is successful, you will see something like the following:
 ![image](https://github.com/OranHamza/video_annotation_tool/assets/127665894/e288813e-d773-4e91-8c1b-87da5153d781)
 
-### Tool
-
-Execute in CLI:
-```python -m pip install https://github.com/OranHamza/video_annotation_tool/archive/master.zip```
-
 ## Usage
 
 1. **Run Code**: Execute the code using the command line interface (CLI).
+
 ```video_annotation_tool "your videos folder path"```
+
 OR
+
 ```python video_annotation_tool.py "your videos folder path"```
+
 2. **Controls**:
 - Press the **'Space'** key to toggle between pause and play.
 - Press **'s'** to mark the start of an annotation.

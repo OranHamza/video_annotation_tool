@@ -18,6 +18,6 @@ setup(
     extras_require={},
     data_files=[],
     entry_points={
-        'console_scripts': ['video_annotation_tool=video_annotation_tool:main'],
+        'console_scripts': ['video_annotation_tool=video_annotation_tool.video_annotation_tool:main'],
     }
 )

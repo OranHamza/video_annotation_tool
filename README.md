@@ -23,8 +23,8 @@ Execute in CLI:
      ![image](https://github.com/OranHamza/video_annotation_tool/assets/127665894/d0f1bbad-a58c-4c52-b6b0-97c145e92a7e)
 
 7. **Confirm Changes**: The final step is to verify that the FFmpeg is properly installed and available for use.
-Start by launching the Command Prompt or PowerShell and enter ffmpeg.
-**$ C:\ffmpeg**
+Start by launching the Command Prompt or PowerShell and enter **ffmpeg**.
+
 If the installation is successful, you will see something like the following:
 ![image](https://github.com/OranHamza/video_annotation_tool/assets/127665894/e288813e-d773-4e91-8c1b-87da5153d781)
 

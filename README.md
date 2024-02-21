@@ -26,3 +26,9 @@
 
 3. **Saving Annotations**: Annotations are automatically saved to a JSON file after the user exits the annotation process.
 
+## Interface
+
+1. **Windows Title**: In the opened video window title, you will see the name of the video you are currently processing, along with annotations from the previous video if available. Additionally, any new video annotations, if added, will be visible.
+
+![image](https://github.com/OranHamza/video_annotation_tool/assets/127665894/3c4d115f-f880-4dc8-8bd3-e01db4be1909)
+

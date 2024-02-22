@@ -34,7 +34,7 @@ If the installation is successful, you will see something like the following:
 
 ```video_annotation_tool "your videos folder path"```
 
-OR
+OR(run this command in the commond line from the folder where your 'video_annotation_tool.py' script is located.)
 
 ```python video_annotation_tool.py "your videos folder path"```
 

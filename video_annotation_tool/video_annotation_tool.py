@@ -24,7 +24,6 @@ def merge_annotations(video_path, new_annotations):
 
     existing_data = {}
 
-   
     if os.path.exists(json_path):
         with open(json_path, 'r', encoding='utf-8') as f:
             existing_data = json.load(f)

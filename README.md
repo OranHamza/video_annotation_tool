@@ -1,5 +1,20 @@
 # Video Annotation Tool
 
+## Tool Description
+This tool developed for annotating important events and phases during measurements. 
+![image](https://github.com/OranHamza/video_annotation_tool/assets/127665894/d607e94e-4445-4b22-989f-3a807da1af1b)
+
+**Important events**: 
+-the puncture moments into gelatine (E1),
+-from gelatine into the tissue (E2), 
+-from tissue into gelatine (E3), 
+-the moment when the needle stops moving and start being pulled out of the phantom (E4).
+
+**Important phases**: 
+-when the needle passes through gelatine (P1), 
+-when it passes through the tissue (P2), 
+-when it passes through gelatine again after exiting the tissue (P3).
+
 ## Installation
 
 ### Tool installation
@@ -40,8 +55,10 @@ OR(run this command in the commond line from the folder where your 'video_annota
 
 2. **Controls**:
 - Press the **'Space'** key to toggle between pause and play.
-- Press **'s'** to mark the start of an annotation.
-- Press **'e'** to mark the end of an annotation.
+- Press **'1'** to mark the event E1.
+- Press **'2'** to mark the event E2.
+- Press **'3'** to mark the event E3.
+- Press **'4'** to mark the event E4.
 - Press **'c'** to clear all annotations.
 - Use **'a'** and **'d'** to navigate backward and forward in the video when paused.
 - Press **'n'** to move to the next video.
@@ -51,7 +68,8 @@ OR(run this command in the commond line from the folder where your 'video_annota
 
 ## Interface
 
-1. **Windows Title**: In the opened video window title, you will see the name of the video you are currently processing, along with annotations from the previous video if available. Additionally, any new video annotations, if added, will be visible.
+1. **Windows Title**: In the opened video window title, you will see the current frame and seconds, along with annotations from the previous video if available. Additionally, any new video annotations, if added, will be visible.
 
-![image](https://github.com/OranHamza/video_annotation_tool/assets/127665894/3c4d115f-f880-4dc8-8bd3-e01db4be1909)
+![image](https://github.com/OranHamza/video_annotation_tool/assets/127665894/1216bb74-9fc7-4483-8440-16fdb498780e)
+
 

@@ -5,15 +5,15 @@ This tool developed for annotating important events and phases during measuremen
 ![image](https://github.com/OranHamza/video_annotation_tool/assets/127665894/d607e94e-4445-4b22-989f-3a807da1af1b)
 
 **Important events**: 
--the puncture moments into gelatine (E1),
--from gelatine into the tissue (E2), 
--from tissue into gelatine (E3), 
--the moment when the needle stops moving and start being pulled out of the phantom (E4).
+- The puncture moments into gelatine (E1),
+- From gelatine into the tissue (E2), 
+- From tissue into gelatine (E3), 
+- The moment when the needle stops moving and start being pulled out of the phantom (E4).
 
 **Important phases**: 
--when the needle passes through gelatine (P1), 
--when it passes through the tissue (P2), 
--when it passes through gelatine again after exiting the tissue (P3).
+- When the needle passes through gelatine (P1), 
+- When it passes through the tissue (P2), 
+- When it passes through gelatine again after exiting the tissue (P3).
 
 ## Installation
 

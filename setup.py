@@ -5,7 +5,7 @@ with open('requirements.txt') as fp:
 
 setup(
     name='video-annotation-tool',
-    version='0.1.0',
+    version='0.2.0',
     description='Vibronav video annotation tool',
     author='Hamza Oran',
     classifiers=[

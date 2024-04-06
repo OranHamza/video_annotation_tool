@@ -30,12 +30,11 @@ def merge_annotations(video_path, new_annotations):
 
     existing_data["video_file"] = os.path.basename(video_path)
 
-    if new_annotations:
-        if "video_annotations" not in existing_data:
-            existing_data["video_annotations"] = []
-        existing_data["video_annotations"] = [new_annotations[-1]]
+    if "video_annotations" not in existing_data:
+        existing_data["video_annotations"] = {}
 
-    
+    existing_data["video_annotations"].update(new_annotations)
+
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(existing_data, f, indent=4)
         print(f"Annotations for {video_path} updated in {json_path}.")
@@ -52,7 +51,7 @@ def annotate_video(video_path):
         print("Error: Could not open video.")
         return
 
-    annotations = []
+    annotations = {}
     e1_frame = None
     e2_frame = None
     e3_frame = None
@@ -72,11 +71,10 @@ def annotate_video(video_path):
             if "video_annotations" in existing_data:
                 existing_annotations = existing_data["video_annotations"]
                 existing_annotations_title = " | Existing Annotations:"
-                for annotation in existing_annotations:
-                    for key, value in annotation.items():
-                        frame = value.get("frame")
-                        time = value.get("time")
-                        existing_annotations_title += f" {key}: Frame(Time): {frame}({time:.2f}s)"
+                for key, value in existing_annotations.items():
+                    frame = value.get("frame")
+                    time = value.get("time")
+                    existing_annotations_title += f" {key}: Frame(Time): {frame}({time:.2f}s)"
 
 
     video_name_without_extension = os.path.splitext(os.path.basename(video_path))[0]
@@ -147,7 +145,10 @@ def annotate_video(video_path):
                     e4_frame = None
                     cv2.setWindowTitle('Video Annotation', f'E4 Frame reset | {title_text}')
                 else:
-                    annotations.append({"1": {"frame": e1_frame,"time": e1_time},"2": {"frame": e2_frame,"time": e2_time},"3": {"frame": e3_frame,"time": e3_time},"4": {"frame": e4_frame,"time": e4_time}})
+                    annotations["1"] = {"frame": e1_frame,"time": e1_time}
+                    annotations["2"] = {"frame": e2_frame,"time": e2_time}
+                    annotations["3"] = {"frame": e3_frame,"time": e3_time}
+                    annotations["4"] = {"frame": e4_frame,"time": e4_time}
         elif key == ord('n'):  # 'n' key to move to the next video
             break
         elif key == ord('c'):  # 'c' key to clear annotations
@@ -212,4 +213,4 @@ def main():
     process_videos_in_folder(args.folder_path)
 
 if __name__ == "__main__":
-    main()  
+    main()

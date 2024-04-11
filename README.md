@@ -68,8 +68,9 @@ OR(run this command in the commond line from the folder where your 'video_annota
 
 ## Interface
 
-1. **Windows Title**: In the opened video window title, you will see the current frame and seconds, along with annotations from the previous video if available. Additionally, any new video annotations, if added, will be visible.
+1. **Windows Title**: In the opened video window title, you will see the current video name, frame and seconds, along with annotations from the previous video if available. Additionally, any new video annotations, if added, will be visible.Existing belongs to the previous annotations. New for the new annotations."F" corresponds Frame ,"T" corresponds Time.
 
-![image](https://github.com/OranHamza/video_annotation_tool/assets/127665894/1216bb74-9fc7-4483-8440-16fdb498780e)
+![image](https://github.com/OranHamza/video_annotation_tool/assets/127665894/9af60993-89bf-4d7a-b8bb-c72a7c360443)
+
 
 

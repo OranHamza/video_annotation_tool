@@ -70,11 +70,11 @@ def annotate_video(video_path):
             existing_data = json.load(f)
             if "video_annotations" in existing_data:
                 existing_annotations = existing_data["video_annotations"]
-                existing_annotations_title = " | Existing Annotations:"
+                existing_annotations_title = " | Existing :"
                 for key, value in existing_annotations.items():
                     frame = value.get("frame")
                     time = value.get("time")
-                    existing_annotations_title += f" {key}: Frame(Time): {frame}({time:.2f}s)"
+                    existing_annotations_title += f" {key}: F(T): {frame}({time:.2f}s)"
 
 
     video_name_without_extension = os.path.splitext(os.path.basename(video_path))[0]
@@ -91,18 +91,18 @@ def annotate_video(video_path):
         frame_index = int(cap.get(cv2.CAP_PROP_POS_FRAMES))
         time_in_seconds = cap.get(cv2.CAP_PROP_POS_MSEC) / 1000.0
 
-        title_text = f'{frame_index}{"("}{time_in_seconds:.2f}{"s"}{")"}{existing_annotations_title}'
+        title_text = f'{os.path.basename(video_path)} | {frame_index}{"("}{time_in_seconds:.2f}{"s"}{")"}{existing_annotations_title}'
         if e1_frame is not None:
-            title_text += f' | New Annotations : E1 Frame(Time): {e1_frame}({e1_time:.2f}s)'
+            title_text += f' | New : E1 F(T): {e1_frame}({e1_time:.2f}s)'
 
         if e2_frame is not None and e1_frame is not None and e1_frame<e2_frame:
-            title_text += f' | E2 Frame(Time): {e2_frame}({e2_time:.2f}s)'
+            title_text += f' | E2 F(T): {e2_frame}({e2_time:.2f}s)'
 
         if e3_frame is not None and e2_frame is not None and e2_frame<e3_frame and e1_frame<e2_frame:
-            title_text += f' | E3 Frame(Time): {e3_frame}({e3_time:.2f}s)'
+            title_text += f' | E3 F(T): {e3_frame}({e3_time:.2f}s)'
 
         if e4_frame is not None and e3_frame is not None and e3_frame<e4_frame and e2_frame<e3_frame:
-            title_text += f' | E4 Frame(Time): {e4_frame}({e4_time:.2f}s)'
+            title_text += f' | E4 F(T): {e4_frame}({e4_time:.2f}s)'
 
         cv2.setWindowTitle('Video Annotation', title_text)
 

@@ -39,6 +39,10 @@ def merge_annotations(video_path, new_annotations):
         json.dump(existing_data, f, indent=4)
         print(f"Annotations for {video_path} updated in {json_path}.")
 
+def update_annotations(annotations, *frames_times):
+    for i, (frame, time) in enumerate(frames_times, start=1):
+        annotations[str(i)] = {"frame": frame, "time": time}
+        
 def annotate_video(video_path):
     """
     Annotates time instants in a video by marking e1 and end e2.
@@ -74,8 +78,10 @@ def annotate_video(video_path):
                 for key, value in existing_annotations.items():
                     frame = value.get("frame")
                     time = value.get("time")
-                    existing_annotations_title += f" {key}: F(T): {frame}({time:.2f}s)"
-
+                    if frame is not None and time is not None:
+                        existing_annotations_title += f" {key}: F(T): {frame}({time:.2f}s)"
+                    else:
+                         existing_annotations_title = ""
 
     video_name_without_extension = os.path.splitext(os.path.basename(video_path))[0]
 
@@ -144,11 +150,8 @@ def annotate_video(video_path):
                 if e4_frame is not None and e4_frame < e3_frame:
                     e4_frame = None
                     cv2.setWindowTitle('Video Annotation', f'E4 Frame reset | {title_text}')
-                else:
-                    annotations["1"] = {"frame": e1_frame,"time": e1_time}
-                    annotations["2"] = {"frame": e2_frame,"time": e2_time}
-                    annotations["3"] = {"frame": e3_frame,"time": e3_time}
-                    annotations["4"] = {"frame": e4_frame,"time": e4_time}
+                update_annotations(annotations, (e1_frame, e1_time), (e2_frame, e2_time), (e3_frame, e3_time), (e4_frame, e4_time))
+
         elif key == ord('5'):  # '5' key for using existing annotation 1
             if "1" in existing_annotations:
                 e1_frame = existing_annotations["1"]["frame"]
@@ -165,7 +168,9 @@ def annotate_video(video_path):
             if "4" in existing_annotations:
                 e4_frame = existing_annotations["4"]["frame"]
                 e4_time = existing_annotations["4"]["time"]
-                        
+           
+            update_annotations(annotations, (e1_frame, e1_time), (e2_frame, e2_time), (e3_frame, e3_time), (e4_frame, e4_time))
+                    
         elif key == ord('n'):  # 'n' key to move to the next video
             break
         elif key == ord('c'):  # 'c' key to clear annotations
@@ -173,6 +178,11 @@ def annotate_video(video_path):
             e2_frame = None
             e3_frame = None
             e4_frame = None
+            e1_time = None
+            e2_time = None
+            e3_time = None
+            e4_time = None
+            update_annotations(annotations, (e1_frame, e1_time), (e2_frame, e2_time), (e3_frame, e3_time), (e4_frame, e4_time))
 
         if key == ord('a'):
             key_pressed = 'a'

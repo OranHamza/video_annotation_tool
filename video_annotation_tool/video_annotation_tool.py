@@ -149,6 +149,23 @@ def annotate_video(video_path):
                     annotations["2"] = {"frame": e2_frame,"time": e2_time}
                     annotations["3"] = {"frame": e3_frame,"time": e3_time}
                     annotations["4"] = {"frame": e4_frame,"time": e4_time}
+        elif key == ord('5'):  # '5' key for using existing annotation 1
+            if "1" in existing_annotations:
+                e1_frame = existing_annotations["1"]["frame"]
+                e1_time = existing_annotations["1"]["time"]
+        elif key == ord('6'):  # '6' key for using existing annotation 2
+            if "2" in existing_annotations:
+                e2_frame = existing_annotations["2"]["frame"]
+                e2_time = existing_annotations["2"]["time"]
+        elif key == ord('7'):  # '7' key for using existing annotation 3
+            if "3" in existing_annotations:
+                e3_frame = existing_annotations["3"]["frame"]
+                e3_time = existing_annotations["3"]["time"]
+        elif key == ord('8'):  # '8' key for using existing annotation 4
+            if "4" in existing_annotations:
+                e4_frame = existing_annotations["4"]["frame"]
+                e4_time = existing_annotations["4"]["time"]
+                        
         elif key == ord('n'):  # 'n' key to move to the next video
             break
         elif key == ord('c'):  # 'c' key to clear annotations

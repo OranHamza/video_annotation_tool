@@ -10,6 +10,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 ### Fixed
 
-## [0.1.0] - 2027-02-17
+## [0.1.0] - 2024-02-21
 ### Added
 - Initial version of the tool.
+
+## [0.2.0] - 2024-04-06
+### Added
+- New events annotations features added.
+
+## [0.3.0] - 2024-04-11
+### Changed
+- Saved Json Format changed.
+
+## [0.4.0] - 2024-04-29
+### Added
+- Allowed using of existing annotations.
+### Fixed
+- Clearing annotations bug fixed.

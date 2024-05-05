@@ -104,10 +104,10 @@ def annotate_video(video_path):
         if e2_frame is not None and e1_frame is not None and e1_frame<e2_frame:
             title_text += f' | E2 F(T): {e2_frame}({e2_time:.2f}s)'
 
-        if e3_frame is not None and e2_frame is not None and e2_frame<e3_frame and e1_frame<e2_frame:
+        if e3_frame is not None and e2_frame is not None and e2_frame<=e3_frame and e1_frame<e2_frame:
             title_text += f' | E3 F(T): {e3_frame}({e3_time:.2f}s)'
 
-        if e4_frame is not None and e3_frame is not None and e3_frame<e4_frame and e2_frame<e3_frame:
+        if e4_frame is not None and e3_frame is not None and e3_frame<=e4_frame and e2_frame<=e3_frame:
             title_text += f' | E4 F(T): {e4_frame}({e4_time:.2f}s)'
 
         cv2.setWindowTitle('Video Annotation', title_text)

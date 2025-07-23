@@ -2,25 +2,61 @@ import cv2
 import argparse
 import json
 import os
+import subprocess
 
-def convert_webm_to_mp4(video_path):
+def convert_video_to_h264(input_path):
     """
-    Converting a WebM video to MP4 format using FFmpeg.(if needed)
+    Converts video to H.264 encoded MP4 format using FFmpeg.
+    If already in proper format, skips conversion.
     """
-    if video_path.lower().endswith('.mp4'):
-        return video_path
-    
-    output_mp4 = video_path.replace(".webm", ".mp4")
-    cmd = f'ffmpeg -i "{video_path}" -c:v libx264 -crf 23 -c:a aac -strict experimental "{output_mp4}"'
-    os.system(cmd)
-    return output_mp4
+    base, ext = os.path.splitext(input_path)
+    output_path = base + "_h264.mp4"
+
+    command = [
+        "ffmpeg",
+        "-y",
+        "-i", input_path,
+        "-c:v", "libx264",
+        "-preset", "slow",
+        "-crf", "23",
+        "-c:a", "aac",
+        "-b:a", "128k",
+        output_path
+    ]
+
+    print(f"Converting: {input_path} → {output_path}")
+    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    if os.path.exists(output_path):
+        os.remove(input_path)
+        final_path = base + ".mp4"
+        os.rename(output_path, final_path)
+        print(f"Done: {final_path}")
+        return final_path
+    else:
+        print(f"Error converting {input_path}:\n{result.stderr.decode()}")
+        return input_path  # fallback if failed
+
+def get_json_filename(video_filename):
+    """
+    """
+    base_name = os.path.splitext(video_filename)[0]
+    base_name_lower = base_name.lower()
+
+    if "cam1" in base_name_lower:
+        base_name = base_name_lower.replace("cam1", "")
+    elif "cam2" in base_name_lower:
+        base_name = base_name_lower.replace("cam2", "")
+
+    base_name = base_name.strip(" _-")
+
+    return base_name + ".json"
 
 def merge_annotations(video_path, new_annotations):
-    """
-    Merging new annotations with existing annotations for a video.(if there is previous annotations exists)
-    """
-    base_name = os.path.splitext(os.path.basename(video_path))[0]
-    json_path = os.path.join(os.path.dirname(video_path), base_name + ".json")
+    original_video_file = os.path.basename(video_path)
+
+    json_filename = get_json_filename(original_video_file)
+    json_path = os.path.join(os.path.dirname(video_path), json_filename)
 
     existing_data = {}
 
@@ -28,7 +64,7 @@ def merge_annotations(video_path, new_annotations):
         with open(json_path, 'r', encoding='utf-8') as f:
             existing_data = json.load(f)
 
-    existing_data["video_file"] = os.path.basename(video_path)
+    existing_data["video_file"] = original_video_file
 
     if "video_annotations" not in existing_data:
         existing_data["video_annotations"] = {}
@@ -47,7 +83,7 @@ def annotate_video(video_path):
     """
     Annotates time instants in a video by marking e1 and end e2.
     """
-    mp4_path = convert_webm_to_mp4(video_path)
+    mp4_path = convert_video_to_h264(video_path)
 
     cap = cv2.VideoCapture(mp4_path)
 
@@ -65,9 +101,10 @@ def annotate_video(video_path):
     key_pressed = None
     quit_app = False
 
-    base_name, _ = os.path.splitext(video_path)
-    json_path = base_name + ".json"
+    json_filename = get_json_filename(os.path.basename(video_path))
+    json_path = os.path.join(os.path.dirname(video_path), json_filename)
     existing_annotations_title = ""
+    existing_annotations = {}
 
     if os.path.exists(json_path):
         with open(json_path, 'r', encoding='utf-8') as f:

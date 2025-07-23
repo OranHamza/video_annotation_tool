@@ -25,7 +25,7 @@ Execute in CLI:
 
 ### Setting up FFmpeg(For Windows)
 
-1. **Download FFmpeg**: [Download FFmpeg](https://drive.google.com/file/d/1r8pC5NDXZ5aPoLZy9EsrnZ1PvbaOSqiR/view) from the provided link.
+1. **Download FFmpeg**: [Download FFmpeg](https://drive.google.com/drive/folders/1_xW8WYHzj_xRmdIu2VqPdSPr1Pb3jqtQ?usp=sharing) from the provided link.
 2. **Extract Files**: Extract the downloaded zip file to your computer.
 3. **Copy Folder**: Locate the extracted folder and copy it.
 4. **Paste to C Drive**: Navigate to your **"C:"** drive and paste the copied folder there.
